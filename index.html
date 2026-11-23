@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fall Math Coloring Studio</title>
+<style>
+:root{--ink:#293244;--muted:#5d687b;--paper:#fffdf8;--accent:#b64b22;--edge:#e8d9c5;--cream:#fff0dc;--green:#27644b}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#fff6e7,#f4efe8);color:var(--ink);min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}header{background:#fffdf9;border-bottom:1px solid var(--edge);padding:16px max(20px,calc((100vw - 1370px)/2))}header h1{margin:0;color:#9b3d1d;font-size:clamp(1.45rem,3vw,2rem)}header p{margin:4px 0 0;color:var(--muted)}main{max-width:1400px;margin:auto;padding:20px;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(310px,0.9fr);gap:18px}.panel{background:#fffdf9;border:1px solid var(--edge);border-radius:18px;box-shadow:0 6px 24px #49351c0b;overflow:hidden}.toolbar{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;border-bottom:1px solid var(--edge)}label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}select,input[type=text]{width:100%;border:1px solid #cfbead;background:white;color:var(--ink);border-radius:9px;padding:11px}select:focus,input:focus,button:focus-visible{outline:3px solid #f9b75f;outline-offset:2px}.art-wrap{padding:14px 16px 8px;position:relative}.art-wrap svg{width:100%;height:auto;max-height:66vh;display:block;background:#fff;border:2px solid #f0e6db;border-radius:12px;touch-action:manipulation}.piece{stroke:#333039;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;cursor:pointer;transition:filter .15s,opacity .15s}.piece.locked{fill:#f8f6f1;stroke:#77717b;stroke-dasharray:0;cursor:pointer}.piece.locked:hover{fill:#fff0d9}.piece.unlocked{cursor:pointer}.piece.unlocked:hover{filter:brightness(.94)}.piece.chosen{stroke:#0b79bd;stroke-width:6;filter:drop-shadow(0 0 3px #4badee)}.art-info{display:flex;justify-content:space-between;gap:10px;padding:0 18px 14px;font-size:.88rem;color:var(--muted);flex-wrap:wrap}.art-info b{color:var(--green)}.sidebar{padding:18px;display:flex;flex-direction:column;gap:16px}.sidebar h2{font-size:1.12rem;margin:0 0 7px}.questionbox{background:#fff4e6;border:1px solid #f0d5b5;padding:16px;border-radius:13px;min-height:180px}.question{font-size:1.4rem;font-weight:750;margin:12px 0;overflow-wrap:anywhere}.small{color:var(--muted);font-size:.88rem;margin:7px 0}.answer-line{display:flex;gap:8px}.answer-line input{min-width:0;flex:1}.btn{border:0;border-radius:10px;background:var(--accent);color:white;font-weight:750;padding:11px 15px}.btn:hover{filter:brightness(.94)}.btn:disabled{background:#b6b3b1;cursor:not-allowed}.btn-secondary{border:1px solid #b9a797;background:#fff;color:var(--ink)}.btn-green{background:#246448}.feedback{min-height:25px;font-weight:700;margin-top:10px}.success{color:#207449}.error{color:#aa351c}.palette{display:flex;flex-wrap:wrap;gap:8px;margin:9px 0}.swatch{height:34px;width:34px;border-radius:9px;border:2px solid #7c706b;background:var(--swatch);padding:0}.swatch.active{outline:3px solid #2178ad;outline-offset:2px}.picker-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.picker-row input{height:40px;width:68px;padding:2px;border-radius:8px;border:1px solid #bcaea0;cursor:pointer}.status{border:1px solid var(--edge);border-radius:12px;padding:13px}.progressbar{height:12px;background:#efe9e1;border-radius:12px;overflow:hidden;margin:12px 0 4px}.progressbar div{height:100%;width:0;background:linear-gradient(90deg,#f6ad43,#378963);transition:width .2s}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.actions .wide{grid-column:1/-1}.instruction{background:#f1f6ed;padding:12px 14px;border-radius:10px;color:#37513c;font-size:.91rem}.footer{max-width:1400px;margin:0 auto;padding:0 20px 24px;color:#746b62;font-size:.8rem;text-align:center}.celebrate{background:#e4f7e7;border:1px solid #91d29e;color:#215c2e;border-radius:11px;padding:12px;font-weight:700}.hidden{display:none!important}@media(max-width:850px){main{grid-template-columns:1fr}.art-wrap svg{max-height:55vh}.sidebar{gap:12px}}@media print{body{background:#fff}header,.toolbar,.sidebar,.art-info,.footer{display:none!important}main{display:block;padding:0}.panel{border:0;box-shadow:none}.art-wrap{padding:0}.art-wrap svg{max-height:none;border:0;width:100%;height:auto}}
+</style>
+</head>
+<body>
+<header><h1>🍂 Fall Math Coloring Studio</h1><p>Solve a problem. Unlock a section. Create your own fall masterpiece!</p></header>
+<main>
+<section class="panel" aria-label="Coloring picture"><div class="toolbar"><div><label for="picture">Choose a fall picture</label><select id="picture"><option value="pumpkin">🎃 Pumpkin Patch</option><option value="tree">🍁 Autumn Tree</option><option value="turkey">🦃 Thanksgiving Turkey</option><option value="acorn">🌰 Acorn & Leaves</option></select></div><div><label for="level">Choose math level</label><select id="level"><option value="one">One-Step Equations</option><option value="two" selected>Two-Step Equations</option><option value="exponents">Exponents</option><option value="algebra">Algebra Challenge</option></select></div></div><div class="art-wrap" id="art-wrap"></div><div class="art-info"><span>Click any outlined section to unlock it with math.</span><span id="art-count"></span></div></section>
+<aside class="panel sidebar"><div class="instruction"><strong>How to play:</strong> Click an uncolored section, solve its math problem, then choose a color. Click an already-unlocked section to recolor it. Finish all sections to complete your picture!</div><section class="questionbox"><h2>🧮 Math challenge</h2><p class="small" id="challenge-caption">Choose a section on the picture to start.</p><div class="question" id="question">Ready when you are!</div><form id="answer-form" class="answer-line"><input id="answer" type="text" inputmode="decimal" autocomplete="off" aria-label="Your math answer" placeholder="Enter your answer" disabled><button class="btn" id="check" type="submit" disabled>Unlock</button></form><div id="feedback" class="feedback" aria-live="polite"></div></section><section><h2>🎨 Coloring tools</h2><p class="small" id="color-help">Solve a section first to color it.</p><div id="palette" class="palette" aria-label="Color choices"></div><div class="picker-row"><label for="customColor" style="margin:0">Custom color</label><input type="color" id="customColor" value="#f58a38" aria-label="Choose any color"><button class="btn btn-secondary" id="paint" type="button">Paint selected section</button></div></section><section class="status"><h2>⭐ Your progress</h2><div id="progress-label">0 sections unlocked</div><div class="progressbar"><div id="progress-fill"></div></div><p class="small" id="progress-sub">Your work saves automatically on this device.</p><div class="celebrate hidden" id="complete">🎉 Picture complete! Great work! Save your masterpiece below.</div></section><div class="actions"><button class="btn btn-green wide" type="button" id="save-pdf">📄 Save Picture as PDF</button><button class="btn btn-secondary" type="button" id="save-png">Save as PNG</button><button class="btn btn-secondary" type="button" id="reset">Start Over</button></div><p class="small">No account needed. Progress stays in this browser, separated by picture and math level. PDF works without any external libraries.</p></aside>
+</main><div class="footer">Made for learning • All artwork and problems run entirely in your browser.</div>
+<script>
+'use strict';
+const NS='http://www.w3.org/2000/svg', W=900,H=650;
+const $=id=>document.getElementById(id);
+const PALETTE=['#f58a38','#e24f36','#f6c645','#94bf62','#387e62','#70b6dc','#8d7ac5','#e69cba','#a96a3f','#f9d6a2','#49405e','#ffffff'];
+let regionDefs=[],selected=-1,chosenColor=PALETTE[0],currentData={colors:{},unlocked:{}},questionCache=[];
+const picNames={pumpkin:'Pumpkin Patch',tree:'Autumn Tree',turkey:'Thanksgiving Turkey',acorn:'Acorn & Leaves'};
+const scenes={
+ pumpkin:`<rect width="900" height="650" fill="#ffffff"/><path d="M25 540 Q450 495 875 540" fill="none" stroke="#444" stroke-width="4"/><path d="M25 574 Q450 535 875 576" fill="none" stroke="#bbb" stroke-width="2"/><path d="M640 95 q40 -55 80 0 q35 -30 69 4" fill="none" stroke="#555" stroke-width="4"/>`,
+ tree:`<rect width="900" height="650" fill="#ffffff"/><path d="M25 558 Q450 520 875 559" fill="none" stroke="#444" stroke-width="4"/><path d="M80 585 Q450 555 840 584" fill="none" stroke="#aaa" stroke-width="2"/>`,
+ turkey:`<rect width="900" height="650" fill="#ffffff"/><path d="M38 575 Q450 548 861 575" stroke="#555" fill="none" stroke-width="4"/>`,
+ acorn:`<rect width="900" height="650" fill="#ffffff"/><path d="M50 573 Q450 542 840 573" stroke="#888" fill="none" stroke-width="3"/>`
+};
+function region(tag,attrs){const el=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));el.classList.add('piece','locked');el.setAttribute('role','button');el.setAttribute('tabindex','0');el.setAttribute('aria-label','Locked coloring section');return el}
+function add(svg,tag,attrs){const el=region(tag,attrs);const id=regionDefs.length;el.dataset.region=id;el.addEventListener('click',()=>choose(id));el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose(id)}});svg.appendChild(el);regionDefs.push(el);return el}
+function path(svg,d){return add(svg,'path',{d})}function ellipse(svg,cx,cy,rx,ry){return add(svg,'ellipse',{cx,cy,rx,ry})}
+function buildPumpkin(svg){
+ // A patch of pumpkins: each non-overlapping colored slice is its own challenge.
+ path(svg,'M430 205 Q455 156 477 186 L468 260 L431 267 Z');
+ path(svg,'M459 212 Q512 159 553 191 Q514 185 487 242 Z');
+ path(svg,'M319 272 Q230 300 232 405 Q231 503 316 525 Q280 470 282 404 Q284 329 319 272 Z');
+ path(svg,'M319 272 Q280 332 282 404 Q280 471 316 525 Q347 542 378 544 Q351 463 354 398 Q357 313 378 270 Z');
+ path(svg,'M378 270 Q354 318 354 398 Q351 472 378 544 L445 550 Q435 465 435 394 Q436 316 445 261 Z');
+ path(svg,'M445 261 Q436 320 435 394 Q435 470 445 550 Q483 551 509 542 Q532 465 526 394 Q521 311 508 268 Z');
+ path(svg,'M508 268 Q527 324 526 394 Q531 466 509 542 Q547 532 571 504 Q597 435 576 363 Q564 293 508 268 Z');
+ path(svg,'M508 268 Q567 284 602 340 Q642 411 607 482 Q593 504 571 504 Q606 428 576 363 Q561 299 508 268 Z');
+ path(svg,'M187 441 Q130 449 119 493 Q114 534 168 548 Q152 503 187 441 Z');
+ path(svg,'M187 441 Q150 486 168 548 L233 552 Q220 502 233 446 Z');
+ path(svg,'M233 446 Q266 466 272 505 Q279 541 233 552 Q214 503 233 446 Z');
+ path(svg,'M674 444 Q616 455 624 508 Q627 551 682 556 Q660 498 674 444 Z');
+ path(svg,'M674 444 Q661 500 682 556 L747 548 Q759 490 730 445 Z');
+ path(svg,'M730 445 Q778 465 779 504 Q776 541 747 548 Q761 498 730 445 Z');
+ path(svg,'M150 210 Q202 162 228 209 Q219 240 185 243 Z');
+ path(svg,'M158 205 Q171 258 207 267 Q245 258 253 235 Q214 221 190 187 Z');
+ path(svg,'M672 262 Q720 230 762 257 Q727 289 695 296 Z');
+ path(svg,'M699 306 Q745 300 765 336 Q728 354 699 338 Z');
+}
+function buildTree(svg){
+ // Trunk sits behind the crown; overlapping leaf clusters cover the upper part.
+ path(svg,'M399 320 L453 323 L460 550 L403 550 Z');
+ path(svg,'M390 425 L351 361 L370 354 L432 430 Z');
+ path(svg,'M452 435 L520 355 L537 369 L459 461 Z');
+ const tops=[[293,277,78,70],[368,215,90,79],[477,201,91,82],[573,254,91,75],[627,335,86,77],[531,350,98,76],[404,344,95,83],[291,362,84,76],[222,330,67,64],[331,147,72,62],[448,121,78,66],[550,151,75,62]];
+ tops.forEach(([x,y,rx,ry])=>ellipse(svg,x,y,rx,ry));
+ path(svg,'M178 475 l33 -25 l30 26 l-36 17 Z');
+ path(svg,'M691 474 l30 -30 l33 29 l-32 25 Z');
+ path(svg,'M749 357 l33 -23 l25 26 l-32 21 Z');
+ path(svg,'M111 549 q43 -23 88 0 Z');
+ path(svg,'M655 555 q58 -31 115 0 Z');
+}
+function buildTurkey(svg){
+ // Fan feathers arranged as distinct stroked shapes.
+ const cx=445,cy=380;for(let i=0;i<11;i++){let a=(-160+i*14)*Math.PI/180;let a2=a+14*Math.PI/180;let r1=100,r2=238;let p=(r,t)=>`${(cx+r*Math.cos(t)).toFixed(1)} ${(cy+r*Math.sin(t)).toFixed(1)}`;path(svg,`M${p(r1,a)} L${p(r2,a)} Q${p(r2+18,(a+a2)/2)} ${p(r2,a2)} L${p(r1,a2)} Z`)}
+ ellipse(svg,445,435,115,117);
+ ellipse(svg,445,347,61,69);
+ path(svg,'M451 373 l55 21 l-56 21 Z');
+ path(svg,'M394 396 Q345 400 358 468 Q388 496 416 455 Z');
+ path(svg,'M496 397 Q545 402 533 472 Q503 497 480 458 Z');
+ path(svg,'M405 532 l-10 43 l-34 0 l37 12 l-5 17 l21 -19 l22 2 l-27 -13 Z');
+ path(svg,'M480 532 l12 43 l35 0 l-38 12 l6 17 l-23 -19 l-21 2 l27 -13 Z');
+ path(svg,'M505 408 Q545 412 519 450 Q498 444 505 408 Z');
+ // Eyes are ink details, not color regions.
+ const eyes=document.createElementNS(NS,'g');eyes.innerHTML='<circle cx="419" cy="336" r="6" fill="#292731"/><circle cx="470" cy="336" r="6" fill="#292731"/>';svg.appendChild(eyes);
+}
+function buildAcorn(svg){
+ path(svg,'M430 123 Q441 75 465 93 L470 155 L447 172 Z');
+ // Body vertical panels
+ path(svg,'M282 282 Q269 377 307 464 Q347 534 396 550 Q381 439 389 288 Z');
+ path(svg,'M389 288 Q378 422 396 550 Q434 567 467 549 Q475 439 470 284 Z');
+ path(svg,'M470 284 Q476 445 467 549 Q525 531 561 459 Q596 386 585 282 Z');
+ // cap with scallop-like strips
+ path(svg,'M278 287 Q267 248 290 205 Q328 162 373 149 L361 291 Q324 310 278 287 Z');
+ path(svg,'M373 149 Q409 135 446 143 L439 296 L361 291 Z');
+ path(svg,'M446 143 Q489 137 519 156 L521 294 L439 296 Z');
+ path(svg,'M519 156 Q573 183 589 242 Q602 271 585 290 Q552 304 521 294 Z');
+ path(svg,'M278 287 Q312 300 361 291 L361 323 Q324 337 287 319 Z');
+ path(svg,'M361 291 Q397 305 439 296 L439 333 Q399 341 361 323 Z');
+ path(svg,'M439 296 Q480 302 521 294 L521 328 Q480 339 439 333 Z');
+ path(svg,'M521 294 Q559 299 585 290 L579 319 Q556 335 521 328 Z');
+ // falling leaves around the acorn
+ path(svg,'M118 247 Q179 188 239 222 Q208 287 134 288 Z');
+ path(svg,'M122 245 Q172 273 176 313 Q128 311 101 286 Z');
+ path(svg,'M658 189 Q700 136 749 165 Q750 210 695 233 Z');
+ path(svg,'M695 233 Q755 225 790 264 Q760 295 714 274 Z');
+ path(svg,'M635 455 Q697 424 740 467 Q706 512 652 495 Z');
+ path(svg,'M149 450 Q204 429 233 469 Q203 505 154 491 Z');
+}
+const builders={pumpkin:buildPumpkin,tree:buildTree,turkey:buildTurkey,acorn:buildAcorn};
+function questionFor(level,i){
+ const x=(((i*7+4)%17)-8),a=(i%5)+2,b=((i*5+3)%17)-8;
+ if(level==='one'){const k=[-8,-5,-3,-2,2,3,4,7][i%8];return i%2===0?{prompt:`x ${k<0?'−':'+'} ${Math.abs(k)} = ${x+k}`,answer:x,hint:'Undo addition or subtraction to isolate x.'}:{prompt:`${a}x = ${a*x}`,answer:x,hint:'Divide both sides by the coefficient of x.'}}
+ if(level==='two'){const c=a*x+b;return{prompt:`${a}x ${b<0?'−':'+'} ${Math.abs(b)} = ${c}`,answer:x,hint:'Undo addition/subtraction first, then divide.'}}
+ if(level==='exponents'){
+  const base=2+(i%4),u=1+i%3,v=1+(Math.floor(i/2)%3);
+  switch(i%4){case 0:return{prompt:`${base}^${u+v} = ?`,answer:base**(u+v),hint:'Multiply the base by itself the given number of times.'};case 1:return{prompt:`${base}^${u} × ${base}^${v} = ?`,answer:base**(u+v),hint:'Same base when multiplying: add the exponents.'};case 2:return{prompt:`${base}^${u+v} ÷ ${base}^${v} = ?`,answer:base**u,hint:'Same base when dividing: subtract the exponents.'};default:return{prompt:`(${base}^${u})^${v} = ?`,answer:base**(u*v),hint:'Power of a power: multiply the exponents.'}}
+ }
+ let left=4+i%5,right=1+(i%3);if(right>=left)right=left-1;
+ let constant=(left-right)*x+b;
+ if(i%3===0){let inner=x+2;return{prompt:`2(x + 2) + ${Math.max(1,i%6+1)} = 2x + ?`,answer:4+Math.max(1,i%6+1),hint:'Distribute 2 first. This problem asks for the missing constant, not x.'}}
+ return{prompt:`${left}x ${b<0?'−':'+'} ${Math.abs(b)} = ${right}x ${constant<0?'−':'+'} ${Math.abs(constant)}`,answer:x,hint:'Subtract the smaller variable term, then isolate x.'};
+}
+function key(){return`fall-math-v1:${$('picture').value}:${$('level').value}`}
+function load(){try{const obj=JSON.parse(localStorage.getItem(key())||'{}');currentData={colors:obj.colors||{},unlocked:obj.unlocked||{}}}catch{currentData={colors:{},unlocked:{}}}}
+function persist(){try{localStorage.setItem(key(),JSON.stringify(currentData))}catch(e){$('progress-sub').textContent='Browser storage unavailable. Save your picture before leaving.'}}
+function start(){load();selected=-1;regionDefs=[];const svg=document.createElementNS(NS,'svg');svg.setAttribute('xmlns',NS);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('role','img');svg.setAttribute('aria-label',picNames[$('picture').value]+' coloring page');svg.innerHTML=scenes[$('picture').value];builders[$('picture').value](svg);$('art-wrap').replaceChildren(svg);questionCache=regionDefs.map((_,i)=>questionFor($('level').value,i));regionDefs.forEach((el,i)=>updateRegion(el,i));$('question').textContent='Ready when you are!';$('challenge-caption').textContent='Choose a section on the picture to start.';$('feedback').textContent='';$('answer').value='';$('answer').disabled=true;$('check').disabled=true;updateProgress();updateColorHelp()}
+function isUnlocked(i){return !!currentData.unlocked[i]}
+function updateRegion(el,i){const unlocked=isUnlocked(i);el.classList.toggle('locked',!unlocked);el.classList.toggle('unlocked',unlocked);el.classList.toggle('chosen',i===selected);el.setAttribute('fill',unlocked?(currentData.colors[i]||'#ffffff'):'#f8f6f1');el.setAttribute('aria-label',`Section ${i+1}: ${unlocked?'unlocked':'locked'}`)}
+function choose(i){selected=i;regionDefs.forEach((el,j)=>updateRegion(el,j));$('feedback').textContent='';if(isUnlocked(i)){$('question').textContent='🎨 Section unlocked!';$('challenge-caption').textContent=`Section ${i+1} — pick a color to paint.`;$('answer').disabled=true;$('check').disabled=true;const color=currentData.colors[i];if(color){chosenColor=color;$('customColor').value=color;renderPalette()}}else{const q=questionCache[i];$('question').textContent=q.prompt;$('challenge-caption').textContent=`Section ${i+1} of ${regionDefs.length} · Solve for ${$('level').value==='exponents'?'the value':$('level').value==='algebra'&&i%3===0?'the missing number':'x'}`;$('answer').disabled=false;$('check').disabled=false;$('answer').value='';$('answer').focus()}updateColorHelp()}
+function parseNum(s){return Number(s.trim().replace(/,/g,''))}
+$('answer-form').addEventListener('submit',e=>{e.preventDefault();if(selected<0||isUnlocked(selected))return;const raw=$('answer').value;if(!raw.trim()||!Number.isFinite(parseNum(raw))){feedback('Enter a number to check your answer.',false);return}const q=questionCache[selected];if(Math.abs(parseNum(raw)-q.answer)<1e-9){currentData.unlocked[selected]=true;currentData.colors[selected]=chosenColor;persist();updateRegion(regionDefs[selected],selected);$('question').textContent='✅ Correct!';$('challenge-caption').textContent=`Section ${selected+1} unlocked — now customize its color.`;$('answer').disabled=true;$('check').disabled=true;feedback('Great work! Choose a color, or click another locked section.',true);updateProgress();updateColorHelp()}else{feedback('Not quite. Try again! Hint: '+q.hint,false);$('answer').select()}});
+function feedback(t,success){$('feedback').textContent=t;$('feedback').className='feedback '+(success?'success':'error')}
+function renderPalette(){$('palette').replaceChildren(...PALETTE.map(c=>{const b=document.createElement('button');b.type='button';b.className='swatch'+(chosenColor.toLowerCase()===c.toLowerCase()?' active':'');b.style.setProperty('--swatch',c);b.setAttribute('aria-label','Color '+c);b.title=c;b.addEventListener('click',()=>{chosenColor=c;$('customColor').value=c;renderPalette();paint()});return b}))}
+function paint(){if(selected<0||!isUnlocked(selected)){if(selected<0)feedback('Choose and unlock a section before coloring.',false);return}currentData.colors[selected]=chosenColor;persist();updateRegion(regionDefs[selected],selected);updateColorHelp()}
+$('customColor').addEventListener('input',e=>{chosenColor=e.target.value;renderPalette();paint()});$('paint').addEventListener('click',paint);
+function updateColorHelp(){$('color-help').textContent=selected<0?'First choose a section on the picture.':isUnlocked(selected)?`Painting section ${selected+1}. Pick any color to apply it.`:'Solve the problem to unlock this section.'}
+function updateProgress(){const total=regionDefs.length,done=regionDefs.filter((_,i)=>isUnlocked(i)).length;$('progress-label').textContent=`${done} of ${total} sections unlocked`;$('art-count').innerHTML=`<b>${Math.round(done/total*100)}%</b> complete`;$('progress-fill').style.width=`${100*done/total}%`;$('complete').classList.toggle('hidden',done!==total);$('save-pdf').textContent=done===total?'📄 Save Finished Picture as PDF':'📄 Save Picture as PDF'}
+$('picture').addEventListener('change',start);$('level').addEventListener('change',start);
+$('reset').addEventListener('click',()=>{if(confirm(`Clear all coloring progress for ${picNames[$('picture').value]} at this math level?`)){localStorage.removeItem(key());start()}});
+// Rasterize the vector illustration locally, then package a JPEG stream in a valid, downloadable PDF.
+async function renderCanvas(){const svg=$('art-wrap').querySelector('svg').cloneNode(true);svg.querySelectorAll('.piece').forEach(el=>{el.classList.remove('chosen');el.removeAttribute('tabindex');el.removeAttribute('role');el.removeAttribute('aria-label');el.removeAttribute('class');el.setAttribute('stroke','#302d31');el.setAttribute('stroke-width','3.5')});const xml=new XMLSerializer().serializeToString(svg);const blob=new Blob([xml],{type:'image/svg+xml;charset=utf-8'});const url=URL.createObjectURL(blob);try{const image=new Image();await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=reject;image.src=url});const canvas=document.createElement('canvas');canvas.width=1800;canvas.height=1400;const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#292b32';ctx.font='bold 39px system-ui, sans-serif';ctx.textAlign='center';ctx.fillText(picNames[$('picture').value]+' • Fall Math Coloring',900,65);ctx.drawImage(image,0,78,1800,1300);return canvas}finally{URL.revokeObjectURL(url)}}
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=name;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+function filename(ext){return`fall-math-${$('picture').value}-${$('level').value}.${ext}`}
+$('save-png').addEventListener('click',async()=>{try{const c=await renderCanvas();c.toBlob(b=>b?downloadBlob(b,filename('png')):alert('Could not create image.'),'image/png')}catch(e){alert('Could not save this image. Try again.')}});
+function binaryBase64(data){const bin=atob(data.split(',')[1]);const out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out}
+function buildPdf(jpeg,width,height){const enc=new TextEncoder(),parts=[],offsets=[0];let total=0;function push(x){const bytes=typeof x==='string'?enc.encode(x):x;parts.push(bytes);total+=bytes.length}function obj(n,content){offsets[n]=total;push(`${n} 0 obj\n`);push(content);push('\nendobj\n')}
+ // Letter landscape, margins 24 points. Each artwork is centered and scaled without cropping.
+ const pageW=792,pageH=612,maxW=744,maxH=564,scale=Math.min(maxW/width,maxH/height),w=width*scale,h=height*scale,x=(pageW-w)/2,y=(pageH-h)/2,stream=`q\n${w.toFixed(3)} 0 0 ${h.toFixed(3)} ${x.toFixed(3)} ${y.toFixed(3)} cm\n/Im1 Do\nQ\n`;
+ push('%PDF-1.4\n');obj(1,'<< /Type /Catalog /Pages 2 0 R >>');obj(2,'<< /Type /Pages /Kids [3 0 R] /Count 1 >>');obj(3,`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageW} ${pageH}] /Resources << /XObject << /Im1 4 0 R >> >> /Contents 5 0 R >>`);offsets[4]=total;push('4 0 obj\n');push(`<< /Type /XObject /Subtype /Image /Width ${width} /Height ${height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.length} >>\nstream\n`);push(jpeg);push('\nendstream\nendobj\n');const ss=enc.encode(stream);obj(5,`<< /Length ${ss.length} >>\nstream\n${stream}endstream`);const xref=total;push('xref\n0 6\n0000000000 65535 f \n');for(let i=1;i<=5;i++)push(`${String(offsets[i]).padStart(10,'0')} 00000 n \n`);push(`trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);return new Blob(parts,{type:'application/pdf'})}
+$('save-pdf').addEventListener('click',async()=>{const btn=$('save-pdf');btn.disabled=true;btn.textContent='Creating PDF…';try{const canvas=await renderCanvas();const jpeg=binaryBase64(canvas.toDataURL('image/jpeg',.93));downloadBlob(buildPdf(jpeg,canvas.width,canvas.height),filename('pdf'))}catch(e){console.error(e);alert('PDF export did not work in this browser. Please try Save as PNG instead.')}finally{btn.disabled=false;updateProgress()}});
+renderPalette();start();
+</script>
+</body>
+</html>
